@@ -1,36 +1,28 @@
 import React from 'react';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+} from 'react-router-dom';
 import './App.css';
-import { getHeroById } from './requests'
-
-const favoritesHeroesIds = [2, 17, 53, 176, 222];
+import InitialHeroes from "./components/InitialHeroes.js";
 
  class App extends React.Component {
-    constructor() {
-        super();
 
-        this.state= {
-            heroList: [],
-        }
-    }
-
-     getAndRenderHeroes = () => {
-         const heroes = [];
-          favoritesHeroesIds.forEach( async (id)  => {
-           await getHeroById(id).then(resp => {
-                  heroes.push(resp.data.id);
-               })
-              this.setState ({heroList:heroes});
-              console.log(this.state.heroList);
-              })
-    }
-     componentDidMount() {
-        this.getAndRenderHeroes()
-    }
-
-    render() {
+     render() {
         return (
-            <main> whatever</main>
-        )
+            <>
+                <Router>
+                    <main>
+                        <div className="container">
+                            <Switch>
+                                <Route exact path="/" component={InitialHeroes} />
+                            </Switch>
+                        </div>
+                    </main>
+                </Router>
+            </>
+        );
     }
 }
 
