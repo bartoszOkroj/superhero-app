@@ -5,7 +5,8 @@ import {
     Route,
 } from 'react-router-dom';
 import './App.css';
-import InitialHeroes from "./components/InitialHeroes.js";
+import InitialHeroes from "./components/InitialHeroes/InitialHeroes.js";
+import HeroDeteiledInfo from "./components/HeroDeteiledInfo/HeroDeteiledInfo.js";
 
  class App extends React.Component {
 
@@ -17,6 +18,7 @@ import InitialHeroes from "./components/InitialHeroes.js";
                         <div className="container">
                             <Switch>
                                 <Route exact path="/" component={InitialHeroes} />
+                                <Route path="/hero/:id" component={HeroDeteiledInfo} />
                             </Switch>
                         </div>
                     </main>

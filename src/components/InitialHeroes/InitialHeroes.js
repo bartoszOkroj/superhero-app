@@ -1,9 +1,9 @@
 import React from 'react';
 //import './InitialHeroes.css';
-import { getHeroById } from "../requests.js";
-import InitialHeroesInfo from "./InitialHeroesInfo.js";
+import { getHeroById } from "../../requests.js";
+import InitialHeroesInfo from "./IntialHeroesInfo/InitialHeroesInfo.js";
 
-const favoritesHeroesIds = [2, 17, 53, 176, 222];
+const favoritesHeroesIds = [2, 17, 70, 176, 222];
 
 class InitialHeroes extends React.Component {
     constructor() {
@@ -31,7 +31,13 @@ class InitialHeroes extends React.Component {
     render() {
         return (
             <section>
-                <h2>jkhniugluyg</h2>
+                <div className={'container'}>
+                    <div className={'initial_hereos_list'}>
+                        {this.state.heroesList.map(({id, name, image , powerstats}) =>{
+                            return <InitialHeroesInfo key={id} id={id} name={name} img={image} powerstats={powerstats} />
+                            })}
+                    </div>
+                </div>
             </section>
         )
     }
