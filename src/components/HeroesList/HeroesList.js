@@ -1,11 +1,11 @@
 import React from 'react';
-//import './InitialHeroes.css';
+import './HeroesList.css';
 import { getHeroById } from "../../requests.js";
-import InitialHeroesInfo from "./IntialHeroesInfo/InitialHeroesInfo.js";
+import HeroesInfo from "../HeroesInfo/HeroesInfo.js";
 
-const favoritesHeroesIds = [2, 17, 70, 176, 222];
+const favoritesHeroesIds = [2, 17, 70, 176, 222, 666];
 
-class InitialHeroes extends React.Component {
+class HeroesList extends React.Component {
     constructor() {
         super();
 
@@ -21,7 +21,6 @@ class InitialHeroes extends React.Component {
         heroes.push(data.data);
     }
         this.setState ({heroesList:heroes});
-        console.log(this.state.heroesList);
     }
 
     componentDidMount() {
@@ -30,17 +29,13 @@ class InitialHeroes extends React.Component {
 
     render() {
         return (
-            <section>
-                <div className={'container'}>
-                    <div className={'initial_hereos_list'}>
+            <section className={'initial_heroes_list'}>
                         {this.state.heroesList.map(({id, name, image , powerstats}) =>{
-                            return <InitialHeroesInfo key={id} id={id} name={name} img={image} powerstats={powerstats} />
+                            return <HeroesInfo key={id} id={id} name={name} img={image} powerstats={powerstats} />
                             })}
-                    </div>
-                </div>
             </section>
         )
     }
 }
 
-export default InitialHeroes;
+export default HeroesList;
