@@ -16,13 +16,17 @@ class HeroDeteiledInfo extends React.Component {
             const data = await getHeroById(id);
             const hero = data.data
             this.setState ({hero:hero});
-            console.log(this.state.hero);
+            console.log(this.state.hero.appearance.height);
     }
 
     componentDidMount() {
-        const { id } = this.props.match.params
-        console.log(id);
-        this.getAndRenderHero(id)
+        let { id } = this.props.match.params
+        if (id==='random') {
+            id = Math.floor(Math.random()*731);
+            this.getAndRenderHero(id)
+        } else {
+            this.getAndRenderHero(id)
+        }
     }
 
     render() {
@@ -32,7 +36,6 @@ class HeroDeteiledInfo extends React.Component {
             <section>
                 <h1>Whatever</h1>
                 <h1>{name}</h1>
-
             </section>
         )
     }

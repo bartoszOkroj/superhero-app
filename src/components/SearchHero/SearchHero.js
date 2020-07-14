@@ -7,34 +7,40 @@ import {getHeroById} from "../../requests.js";
 const favoritesHeroesIds = [2, 17, 70, 176, 222, 666];
 
 class SearchHero extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
-
-        this.state= {
-            heroesList: [],
+        console.log(props.match.params.name);
+        this.state = {
+            searchName: props.match.params.name,
+            searchHeroesList: [],
+            errorInfo: ''
         }
     }
 
-    getAndRenderHeroes = async () => {
-        const heroes = [];
-        for (const id of favoritesHeroesIds) {
-            const data = await getHeroById(id);
-            heroes.push(data.data);
-        }
-        this.setState ({heroesList:heroes});
-        console.log(this.state.heroesList);
+    searchForHero = () => {
+        const {searchName} = this.state
+        getHeroByName(searchName).then(searchResults => {
+            const { data } = searchResults;
+            if (data.error) {
+                this.setState({errorInfo: data.error})
+                this.setState({searchHeroesList: []})
+                return;
+            }
+            const { results } = data;
+            this.setState({searchHeroesList: results})
+            this.setState({errorInfo: ''})
+        })
     }
 
     componentDidMount() {
-        const { name } = this.props.match.params
-        console.log(name);
-      //  this.getAndRenderHero(id)
-    }
+        this.searchForHero();
+    };
 
     render() {
         return (
             <section className={'initial_heroes_list'}>
-                {this.state.heroesList.map(({id, name, image , powerstats}) =>{
+                { this.state.errorInfo && <h2>{this.state.errorInfo}</h2>}
+                {this.state.searchHeroesList.map(({id, name, image , powerstats}) =>{
                     return <HeroesInfo key={id} id={id} name={name} img={image} powerstats={powerstats} />
                 })}
             </section>
