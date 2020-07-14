@@ -9,6 +9,7 @@ import HeroesList from "./components/HeroesList/HeroesList.js";
 import HeroDeteiledInfo from "./components/HeroDeteiledInfo/HeroDeteiledInfo.js";
 import Nav from "./components/Nav/Nav.js";
 import SearchHero from "./components/SearchHero/SearchHero.js";
+import Footer from "./components/Footer/Footer.js";
 
  class App extends React.Component {
 
@@ -25,6 +26,7 @@ import SearchHero from "./components/SearchHero/SearchHero.js";
                         </Switch>
                     </div>
                 </main>
+                <Footer/>
             </Router>
         );
     }

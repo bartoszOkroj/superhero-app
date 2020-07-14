@@ -16,7 +16,6 @@ class HeroDeteiledInfo extends React.Component {
             const data = await getHeroById(id);
             const hero = data.data
             this.setState ({hero:hero});
-            console.log(this.state.hero.appearance.height);
     }
 
     componentDidMount() {
@@ -36,6 +35,8 @@ class HeroDeteiledInfo extends React.Component {
             <section>
                 <h1>Whatever</h1>
                 <h1>{name}</h1>
+                <h1>{id}</h1>
+                <h1>{img}</h1>
             </section>
         )
     }

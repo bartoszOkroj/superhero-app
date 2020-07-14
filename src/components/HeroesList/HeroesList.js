@@ -2,6 +2,7 @@ import React from 'react';
 import './HeroesList.css';
 import { getHeroById } from "../../requests.js";
 import HeroesInfo from "../HeroesInfo/HeroesInfo.js";
+import Loader from "../Loader/Loader.js";
 
 const favoritesHeroesIds = [2, 17, 70, 176, 222, 666];
 
@@ -11,6 +12,7 @@ class HeroesList extends React.Component {
 
         this.state= {
             heroesList: [],
+            isLoading: true,
         }
     }
 
@@ -21,6 +23,7 @@ class HeroesList extends React.Component {
         heroes.push(data.data);
     }
         this.setState ({heroesList:heroes});
+        this.setState ({isLoading:false});
     }
 
     componentDidMount() {
@@ -29,11 +32,18 @@ class HeroesList extends React.Component {
 
     render() {
         return (
-            <section className={'initial_heroes_list'}>
-                        {this.state.heroesList.map(({id, name, image , powerstats}) =>{
-                            return <HeroesInfo key={id} id={id} name={name} img={image} powerstats={powerstats} />
-                            })}
-            </section>
+            <>
+                <h1>My favorites heroes</h1>
+                <section className={'initial_heroes_list'}>
+                    {this.state.isLoading &&
+                    <div className="loader-container">
+                        <Loader />
+                    </div>}
+                    {this.state.heroesList.map(({id, name, image , powerstats}) =>{
+                        return <HeroesInfo key={id} id={id} name={name} img={image} powerstats={powerstats} />
+                    })}
+                </section>
+            </>
         )
     }
 }
