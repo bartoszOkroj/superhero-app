@@ -2,11 +2,13 @@ import React from 'react';
 import './SearchHero.css';
 import { getHeroByName } from "../../requests.js";
 import HeroesInfo from "../HeroesInfo/HeroesInfo.js";
+import Loader from "../Loader/Loader";
 
 class SearchHero extends React.Component {
     constructor(props) {
         super();
         this.state = {
+            isLoading: true,
             searchName: props.match.params.name,
             searchHeroesList: [],
             errorInfo: ''
@@ -20,11 +22,13 @@ class SearchHero extends React.Component {
             if (data.error) {
                 this.setState({errorInfo: data.error})
                 this.setState({searchHeroesList: []})
+                this.setState({isLoading:false})
                 return;
             }
             const { results } = data;
             this.setState({searchHeroesList: results})
             this.setState({errorInfo: ''})
+            this.setState({isLoading:false})
         })
     }
 
@@ -35,6 +39,10 @@ class SearchHero extends React.Component {
     render() {
         return (
             <section className={'initial_heroes_list'}>
+                {this.state.isLoading &&
+                <div className="loader-container">
+                    <Loader />
+                </div>}
                 {this.state.errorInfo && <h2>{this.state.errorInfo}</h2>}
                 {this.state.searchHeroesList.map(({id, name, image , powerstats}) =>{
                     return <HeroesInfo key={id} id={id} name={name} img={image} powerstats={powerstats} />
