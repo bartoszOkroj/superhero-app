@@ -34,15 +34,12 @@ class HeroesList extends React.Component {
         return (
             <>
                 <h1>My favorites heroes</h1>
+                {this.state.isLoading ? <Loader /> :
                 <section className={'initial_heroes_list'}>
-                    {this.state.isLoading &&
-                    <div className="loader-container">
-                        <Loader />
-                    </div>}
                     {this.state.heroesList.map(({id, name, image , powerstats}) =>{
                         return <HeroesInfo key={id} id={id} name={name} img={image} powerstats={powerstats} />
                     })}
-                </section>
+                </section>}
             </>
         )
     }

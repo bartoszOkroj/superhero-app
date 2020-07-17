@@ -18,7 +18,7 @@ import Footer from "./components/Footer/Footer.js";
             <Router>
                 <Nav/>
                 <main>
-                    <div className="container">
+                    <div className="container container--main">
                         <Switch>
                             <Route exact path="/" component={HeroesList} />
                             <Route path="/hero/:id" component={HeroDeteiledInfo} />

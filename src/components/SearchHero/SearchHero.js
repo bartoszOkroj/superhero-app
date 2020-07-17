@@ -42,16 +42,15 @@ class SearchHero extends React.Component {
 
     render() {
         return (
-            <section className={'initial_heroes_list'}>
-                {this.state.isLoading &&
-                <div className="loader-container">
-                    <Loader />
-                </div>}
-                {this.state.errorInfo && <h2>{this.state.errorInfo}</h2>}
-                {this.state.searchHeroesList.map(({id, name, image , powerstats}) =>{
-                    return <HeroesInfo key={id} id={id} name={name} img={image} powerstats={powerstats} />
-                })}
-            </section>
+            <>
+                {this.state.isLoading ? <Loader /> :
+                    <section className={'initial_heroes_list'}>
+                    {this.state.errorInfo && <h2>{this.state.errorInfo}</h2>}
+                    {this.state.searchHeroesList.map(({id, name, image , powerstats}) =>{
+                        return <HeroesInfo key={id} id={id} name={name} img={image} powerstats={powerstats} />
+                    })}
+                </section>}
+            </>
         )
     }
 }
