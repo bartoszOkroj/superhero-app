@@ -8,7 +8,7 @@ function HeroesInfo (params) {
     return (
         <article className={'initial_hero_info'}>
             <h2>{name}</h2>
-            <Link to={`hero/${id}`}><img src={img.url} alt={`picture of ${name}`}/></Link>
+            <Link to={`/hero/${id}`}><img src={img.url} alt={`picture of ${name}`}/></Link>
             <div className={'powerstats'}>
                 <p>combat: {combat}</p>
                 <p>durability: {durability}</p>

@@ -23,10 +23,10 @@ class Nav extends React.Component {
             <nav>
                 <div className={'container'}>
                     <p>logo</p>
-                    <Link to={`hero/${this.state.heroId}`}><button className={'btn'}>Radnom Hero</button></Link>
+                    <Link to={`/hero/${this.state.heroId}`}><button className={'btn'}>Radnom Hero</button></Link>
                     <div className={'search_hero'}>
                         <input onChange={this.onInputChange} />
-                        <Link to={`search/${this.state.heroName}`}><button className={'btn'}>Find Hero</button></Link>
+                        <Link to={`/search/${this.state.heroName}`}><button className={'btn'}>Find Hero</button></Link>
                     </div>
                 </div>
             </nav>

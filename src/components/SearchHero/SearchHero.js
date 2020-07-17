@@ -36,6 +36,10 @@ class SearchHero extends React.Component {
         this.searchForHero();
     };
 
+    //componentDidUpdate(prevProps) {
+
+
+
     render() {
         return (
             <section className={'initial_heroes_list'}>

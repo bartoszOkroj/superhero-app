@@ -58,7 +58,7 @@ class HeroDeteiledInfo extends React.Component {
                 <h1>{name}</h1>
                 {this.state.isLoading ? <Loader/> :
                 <section className={'deteiledHeroInfo'}>
-                    <img src={img}/>
+                    <img src={img} alt={`picture of ${name}`}/>
                     <div className={'box'}>
                         <article className={'info'}>
                             <h2>General Info:</h2>
