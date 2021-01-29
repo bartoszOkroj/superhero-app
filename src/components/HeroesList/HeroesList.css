@@ -1,4 +1,16 @@
 .initial_heroes_list {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr
+}
+
+@media (min-width: 768px) {
+    .initial_heroes_list {
+        grid-template-columns: 1fr 1fr
+    }
+}
+
+@media (min-width: 1024px) {
+    .initial_heroes_list {
+        grid-template-columns: 1fr 1fr 1fr
+    }
 }

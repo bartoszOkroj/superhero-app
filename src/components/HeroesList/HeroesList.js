@@ -7,9 +7,9 @@ import Loader from "../Loader/Loader.js";
 const favoritesHeroesIds = [2, 17, 70, 176, 222, 666];
 
 class HeroesList extends React.Component {
+
     constructor() {
         super();
-
         this.state= {
             heroesList: [],
             isLoading: true,

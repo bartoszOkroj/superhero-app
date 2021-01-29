@@ -5,11 +5,7 @@
     box-shadow: 0 3px 7px rgba(0,0,0,0.2);
     border-radius: 20px;
     transition: transform 0.5s;
-}
-
-.initial_hero_info:hover {
-    transform: scale(1.1);
-    z-index: 15;
+    padding: 0 15px;
 }
 
 img {
@@ -18,7 +14,7 @@ img {
     border-radius: 20px
 }
 
-h1 {
+.initial_hero_info h2 {
     text-align: center;
 }
 
@@ -30,8 +26,22 @@ h1 {
     position: center;
 }
 
-p {
-    font-size: 12px;
-    text-align: center;
-    color: black;
+.powerstats {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .initial_hero_info:hover {
+        transform: scale(1.1);
+    }
+
+    .powerstats {
+        display: flex;
+    }
+
+    .initial_hero_info p {
+        font-size: 12px;
+        text-align: center;
+        color: black;
+    }
 }

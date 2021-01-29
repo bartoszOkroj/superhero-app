@@ -1,5 +1,22 @@
 .deteiledHeroInfo {
+    width: 100%;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column;
     justify-content: space-between;
+    align-items: end;
+}
+
+.deteiledHeroInfo img {
+    align-self: center;
+}
+
+@media (min-width: 1024px) {
+    .deteiledHeroInfo {
+        flex-direction: row-reverse;
+        align-items: end;
+    }
+
+    .deteiledHeroInfo img {
+        align-self: end;
+    }
 }
