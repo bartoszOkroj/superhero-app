@@ -1,11 +1,13 @@
 import React from 'react';
 import './Memory.css';
-import {Link} from "react-router-dom";
 import {getHeroById} from "../../../requests";
 import Loader from "../../Loader/Loader";
 
 let firstCardClicked = 0 ;
 let secondCardClicked = 0 ;
+let firstCardToFlip;
+let secondCardToFlip;
+let counter = 0;
 
 class Memory extends React.Component {
 
@@ -14,10 +16,8 @@ class Memory extends React.Component {
         this.state= {
             heroesList: [],
             isLoading: true,
-            isFirstCardClicked: false,
-            isSecondCardClicked: false,
-            firstCardClicked: 0,
-            secondCardClicked: 0,
+            isFinished: false,
+            counter: 0,
         }
         this.clicked = this.clicked.bind(this)
     }
@@ -27,6 +27,9 @@ class Memory extends React.Component {
         for (const id of doubledheroesIds) {
             const data = await getHeroById(id);
             heroes.push(data.data);
+        }
+        for (let i=0; i<heroes.length; i++){
+            heroes[i].uniNr = i;
         }
         this.setState ({heroesList:heroes});
         this.setState ({isLoading:false});
@@ -53,40 +56,72 @@ class Memory extends React.Component {
 
      clicked(event) {
         if (firstCardClicked === 0) {
-            firstCardClicked = event.target.id;
+            firstCardClicked = event.target.src;
+            firstCardToFlip = document.getElementById(event.target.id);
+            firstCardToFlip.classList.remove('heroPicCovered');
+            firstCardToFlip.classList.add('heroPicUncovered');
             console.log('pierwsze klikniecie')
-            console.log(event.target.key)
-            let card = document.getElementById(firstCardClicked);
-            card.classList.add('heroPicCovered');
         }
         else if (secondCardClicked === 0) {
-            secondCardClicked = event.target.id;
-            if (firstCardClicked === secondCardClicked) {
-                console.log('drugie klikniecie')
-                console.log(secondCardClicked)
-                console.log('succses');
-            }
-            else {
-                console.log('try again');
-            }
-            firstCardClicked = 0;
-            secondCardClicked = 0;
+            secondCardClicked = event.target.src;
+            secondCardToFlip = document.getElementById(event.target.id);
+            secondCardToFlip.classList.remove('heroPicCovered');
+            secondCardToFlip.classList.add('heroPicUncovered');
+            console.log('drugie klikniecie');
+            setTimeout(() => {
+                if (firstCardClicked === secondCardClicked) {
+                    console.log('succses');
+                    counter ++;
+                    if (counter === 18) {
+                        this.setState({isFinished: true})
+                        console.log(this.state.isFinished);
+                    }
+                }
+                else {
+                    console.log('try again');
+                    firstCardToFlip.classList.add('heroPicCovered');
+                    secondCardToFlip.classList.add('heroPicCovered');
+                    firstCardToFlip.classList.remove('heroPicUncovered');
+                    secondCardToFlip.classList.remove('heroPicUncovered');
+                }
+                firstCardClicked = 0;
+                secondCardClicked = 0;
+            }, 3);
+            /* function checkCards () {
+                if (firstCardClicked === secondCardClicked) {
+                    console.log('succses');
+                    counter ++;
+                    if (counter === 18) {
+                        this.setState({isFinished: true})
+                    }
+                }
+                else {
+                    console.log('try again');
+                    firstCardToFlip.classList.add('heroPicCovered');
+                    secondCardToFlip.classList.add('heroPicCovered');
+                    firstCardToFlip.classList.remove('heroPicUncovered');
+                    secondCardToFlip.classList.remove('heroPicUncovered');
+                }
+                firstCardClicked = 0;
+                secondCardClicked = 0;
+            } */
         }
     }
 
     componentDidMount() {
         let doubledheroesIds = this.getAndMixedHeroesIds();
-        this.getAndRenderHeroes(doubledheroesIds)
+        this.getAndRenderHeroes(doubledheroesIds);
     }
 
     render() {
         return (
-            this.state.isLoading ? <Loader /> :
-                    <section className={'heroPicList'}>
-                        {this.state.heroesList.map(({id, image}) =>{
-                            return <div id={id} className={'heroPic'} onClick={this.clicked}><img src={image.url} key={id} id={id} alt={`picture of hero nr ${id}`}/></div>
-                        })}
-                    </section>
+            this.state.isLoading ? <Loader /> :(
+                this.state.isLoading ? <div>wanna try again?</div> :
+                <section className={'heroPicList'}>
+                {this.state.heroesList.map(({id, image, uniNr}) =>{
+                    return <div id={uniNr} className={'heroPic heroPicCovered'} onClick={this.clicked}><img src={image.url} id={uniNr} alt={`picture of hero nr ${id}`}/></div>
+                })}
+            </section>)
         )
     }
 }

@@ -8,13 +8,24 @@
     width: 100px;
     height: 125px;
     border: black 1px solid;
+    border-radius: 4px;
+    margin: 5px 0 5px 0;
+}
+
+.heroPicUncovered {
+    pointer-events: none;
+}
+
+.heroPicCovered {
+    cursor: pointer;
 }
 
 .heroPic img {
     width: 100%;
     height: 100%;
+    border-radius: 0;
 }
 
 .heroPicCovered img {
-    display: none;
+    opacity: 0 ;
 }
