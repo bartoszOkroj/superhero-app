@@ -1,5 +1,6 @@
 import React from 'react';
 import './HeroesList.css';
+import {Link} from "react-router-dom";
 import { getHeroById } from "../../requests.js";
 import HeroesInfo from "../HeroesInfo/HeroesInfo.js";
 import Loader from "../Loader/Loader.js";

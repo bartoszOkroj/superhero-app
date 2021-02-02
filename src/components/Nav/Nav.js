@@ -45,7 +45,7 @@ class Nav extends React.Component {
                         <Link to={`/hero/${this.state.heroId}`}><button className={'btn_nav'}>Radnom Hero</button></Link>
                         <Link to={`/games/memory`}><button className={'btn_nav'}>Memory Game</button></Link>
                         <div className={'search_hero'}>
-                            <input suggestions={this.state.heroesNames} onChange={this.onInputChange}/>
+                            <input onChange={this.onInputChange}/>
                             <Link to={`/search/${this.state.heroName}`}><button className={'btn_nav'}>Find Hero</button></Link>
                         </div>
                     </div>

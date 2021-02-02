@@ -29,3 +29,20 @@
 .heroPicCovered img {
     opacity: 0 ;
 }
+
+.finishedGame {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.memoryFinishedBtns {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.btn_memory {
+    font-size: 120%;
+    height: 120%;
+}
