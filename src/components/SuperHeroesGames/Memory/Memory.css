@@ -1,3 +1,13 @@
+.gamePanel {
+    display: flex;
+    flex-direction: column;
+}
+
+.gameStats {
+    display: flex;
+    justify-content: space-between;
+}
+
 .heroPicList {
     display: flex;
     justify-content: space-between;

@@ -8,7 +8,8 @@ let firstCardClicked = 0 ;
 let secondCardClicked = 0 ;
 let firstCardToFlip;
 let secondCardToFlip;
-let counter = 0;
+let foundCards = 0;
+let turnsCounter = 0;
 
 class Memory extends React.Component {
 
@@ -18,7 +19,8 @@ class Memory extends React.Component {
             heroesList: [],
             isLoading: true,
             isFinished: false,
-            counter: 0,
+            foundCards: 0,
+            turnsCounter: 0,
         }
         this.clickedCard = this.clickedCard.bind(this)
         this.clickedBtn = this.clickedBtn.bind(this)
@@ -69,15 +71,14 @@ class Memory extends React.Component {
             secondCardToFlip = document.getElementById(event.target.id);
             secondCardToFlip.classList.remove('heroPicCovered');
             secondCardToFlip.classList.add('heroPicUncovered');
-            console.log('drugie klikniecie');
+            turnsCounter++;
+            this.setState({turnsCounter:turnsCounter});
             setTimeout(() => {
                 if (firstCardClicked === secondCardClicked) {
-                    console.log('succses');
-                    counter ++;
-                    if (counter === 18) {
-                        this.setState({isFinished: true})
-                        console.log(this.state.isFinished);
-                        counter = 0;
+                    foundCards ++;
+                    this.setState({foundCards:foundCards});
+                    if (foundCards === 18) {
+                        this.setState({isFinished: true});
                     }
                 }
                 else {
@@ -94,6 +95,10 @@ class Memory extends React.Component {
     }
 
     clickedBtn() {
+        foundCards = 0;
+        this.setState({foundCards:foundCards});
+        turnsCounter = 0;
+        this.setState({turnsCounter:turnsCounter});
         this.setState ({isLoading:true});
         this.setState({isFinished:false});
         let doubledheroesIds = this.getAndMixedHeroesIds();
@@ -110,17 +115,23 @@ class Memory extends React.Component {
             this.state.isLoading ? <Loader /> :(
                 this.state.isFinished ?
                     <section className={'finishedGame'}>
-                        <h1>Congratulations, you're the best! Wanna try with different heroes?</h1>
+                        <h1>Congratulations, you did it in {this.state.turnsCounter} turns, you're the best! Wanna again try with different heroes?</h1>
                         <article className={'memoryFinishedBtns'}>
                             <Link to={`/`}><button className={'btn_memory'}>Go to home page</button></Link>
                             <button className={'btn_memory'} onClick={this.clickedBtn}>Play again</button>
                         </article>
                     </section>
                     :
-                    <section className={'heroPicList'}>
-                    {this.state.heroesList.map(({id, image, uniNr}) =>{
-                        return <div id={uniNr} className={'heroPic heroPicCovered'} onClick={this.clickedCard}><img src={image.url} id={uniNr} alt={`picture of hero nr ${id}`}/></div>
-                    })}
+                    <section className={'gamePanel'}>
+                        <article className={'gameStats'}>
+                            <h1>Found Heroes: {this.state.foundCards} </h1>
+                            <h1>Turns: {this.state.turnsCounter} </h1>
+                        </article>
+                        <article className={'heroPicList'}>
+                            {this.state.heroesList.map(({id, image, uniNr}) =>{
+                                return <div id={uniNr} className={'heroPic heroPicCovered'} onClick={this.clickedCard}><img src={image.url} id={uniNr} alt={`picture of hero nr ${id}`}/></div>
+                            })}
+                        </article>
                     </section>)
         )
     }
